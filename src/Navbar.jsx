@@ -1,9 +1,13 @@
 import DarkModeToggle from "./DarkModeToggle";
 import { Link } from "react-scroll";
 import { useEffect, useState } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
+
+const navItems = ["home", "projects", "skills", "about", "contact"];
 
 function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
@@ -36,8 +40,21 @@ function Navbar() {
           Mark Fox
         </Link>
 
+        {/* Hamburger Menu Toggle - visible only on small screens */}
+        <button
+          className="sm:hidden text-2xl text-gray-800 dark:text-white"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation menu"
+        >
+          {menuOpen ? <FiX /> : <FiMenu />}
+        </button>
+
         {/* Navigation Links */}
-        <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
+        <div
+          className={`${
+            menuOpen ? "flex" : "hidden"
+          } flex-col sm:flex sm:flex-row gap-4 items-center sm:items-start`}
+        >
           <Link
             spy={true}
             activeClass="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 font-semibold"
@@ -61,7 +78,17 @@ function Navbar() {
           >
             Projects
           </Link>
-
+          <Link
+            to="skills"
+            smooth={true}
+            duration={500}
+            offset={-70} // adjust based on your navbar height
+            spy={true}
+            activeClass="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 font-semibold"
+            className="cursor-pointer text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+          >
+            Skills
+          </Link>
           <Link
             to="about"
             smooth={true}
@@ -72,6 +99,17 @@ function Navbar() {
             className="cursor-pointer text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
           >
             About
+          </Link>
+          <Link
+            to="contact"
+            smooth={true}
+            duration={500}
+            offset={-70} // adjust based on your navbar height
+            spy={true}
+            activeClass="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 font-semibold"
+            className="cursor-pointer text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+          >
+            Contact
           </Link>
           <DarkModeToggle />
           <a

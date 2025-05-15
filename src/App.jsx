@@ -25,6 +25,13 @@ function App() {
     document.documentElement.classList.contains("dark")
   );
 
+  // Force dark mode on initial load
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
+  }, []);
+
+  // Mobile formatting
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Handles contact form submission status
   const [status, setStatus] = useState("idle");
@@ -53,7 +60,6 @@ function App() {
     }
   };
 
-
   // Controls visibility of scroll-to-top button
   const [showButton, setShowButton] = useState(false);
 
@@ -70,7 +76,6 @@ function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-
   // Project tag filtering logic
   const allTags = [
     "All",
@@ -82,9 +87,6 @@ function App() {
       ? projects
       : projects.filter((proj) => proj.tags?.includes(selectedTag));
 
-
- 
-
   return (
     <Routes>
       <Route
@@ -92,288 +94,305 @@ function App() {
         element={
           <>
             <Navbar />
-            <main>
-              {/* 🏠 HOME SECTION */}
-              <section
-                aria-labelledby="home"
-                id="home"
-                className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen flex items-center justify-center px-4 pt-24 transition-colors"
-              >
-                <div className="max-w-2xl text-center space-y-6">
-                  <h1 className="text-4xl sm:text-5xl font-bold">Mark Fox</h1>
-                  <p
-                    className="text-xl"
-                    data-aos="fade-up"
-                    data-aos-delay="100"
-                  >
-                    AI Engineer & Full-Stack Developer passionate about building
-                    intelligent, useful tools.
-                  </p>
 
-                  <div className="flex justify-center gap-6 text-blue-600 dark:text-blue-400 text-lg">
-                    <a
-                      href="https://github.com/mark-fox"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
+            <div
+              className="min-h-screen bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: "url('/background.svg')" }}
+            >
+              <div className="max-w-6xl mx-auto px-6 py-12">
+                <div className="max-w-6xl mx-auto border-x border-gray-300 dark:border-gray-700 backdrop-blur-sm bg-gray-50/90 dark:bg-gray-900/70 shadow-md transition-colors">
+                  <main className="px-6 py-10 bg-white/10 backdrop-blur-md border border-white/20 dark:border-gray-700 shadow-xl rounded-xl">
+                    {/* 🏠 HOME SECTION */}
+                    <section
+                      aria-labelledby="home"
+                      id="home"
+                      className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen flex items-center justify-center px-4 pt-24 transition-colors"
                     >
-                      GitHub
-                    </a>
-                    <a
-                      href="https://linkedin.com/in/markfox1"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
+                      <div className="max-w-2xl text-center space-y-6">
+                        <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-600">
+                          Mark Fox
+                        </h1>
+                        <p
+                          className="text-xl"
+                          data-aos="fade-up"
+                          data-aos-delay="100"
+                        >
+                          AI Engineer & Full-Stack Developer passionate about
+                          building intelligent, useful tools.
+                        </p>
+
+                        <div className="flex justify-center gap-6 text-blue-600 dark:text-blue-400 text-lg">
+                          <a
+                            href="https://github.com/mark-fox"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                          >
+                            GitHub
+                          </a>
+                          <a
+                            href="https://linkedin.com/in/markfox1"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                          >
+                            LinkedIn
+                          </a>
+                          <a
+                            href="/resume.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                          >
+                            Resume
+                          </a>
+                        </div>
+                      </div>
+                    </section>
+
+                    {/* DIVIDER */}
+                    <div className="h-20 bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-800" />
+
+                    {/* PROJECTS SECTION */}
+                    <section
+                      aria-labelledby="projects"
+                      id="projects"
+                      className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100"
                     >
-                      LinkedIn
-                    </a>
-                    <a
-                      href="/resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
+                      <div className="max-w-6xl mx-auto">
+                        <h2
+                          className="text-4xl font-extrabold tracking-tight text-center text-gray-800 dark:text-white mb-10"
+                          data-aos="fade-up"
+                        >
+                          Projects
+                        </h2>
+                        <div className="flex flex-wrap justify-center gap-4 mb-10">
+                          {allTags.map((tag) => (
+                            <button
+                              key={tag}
+                              onClick={() => setSelectedTag(tag)}
+                              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                                selectedTag === tag
+                                  ? "bg-blue-600 text-white"
+                                  : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+                              }`}
+                            >
+                              {tag}
+                            </button>
+                          ))}
+                        </div>
+
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                          {filteredProjects.map((proj, index) => (
+                            <div
+                              key={index}
+                              data-aos="fade-up"
+                              data-aos-delay={index * 100}
+                            >
+                              <ProjectCard key={index} {...proj} />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </section>
+
+                    {/* SKILLS SECTION */}
+                    <section
+                      aria-labelledby="skills"
+                      id="skills"
+                      className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 py-16 px-4 transition-colors"
                     >
-                      Resume
-                    </a>
-                  </div>
-                </div>
-              </section>
-
-
-              {/* DIVIDER */}
-              <div className="h-20 bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-800" />
-
-
-              {/* PROJECTS SECTION */}
-              <section
-                aria-labelledby="projects"
-                id="projects"
-                className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100"
-              >
-                <div className="max-w-6xl mx-auto">
-                  <h2
-                    className="text-4xl font-extrabold tracking-tight text-center text-gray-800 dark:text-white mb-10"
-                    data-aos="fade-up"
-                  >
-                    Projects
-                  </h2>
-                  <div className="flex flex-wrap justify-center gap-4 mb-10">
-                    {allTags.map((tag) => (
-                      <button
-                        key={tag}
-                        onClick={() => setSelectedTag(tag)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-                          selectedTag === tag
-                            ? "bg-blue-600 text-white"
-                            : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-                        }`}
-                      >
-                        {tag}
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredProjects.map((proj, index) => (
                       <div
-                        key={index}
+                        className="max-w-4xl mx-auto text-center space-y-10"
                         data-aos="fade-up"
-                        data-aos-delay={index * 100}
                       >
-                        <ProjectCard key={index} {...proj} />
+                        <h2 className="text-4xl font-extrabold tracking-tight">
+                          Skills
+                        </h2>
+                        <p className="text-lg text-gray-600 dark:text-gray-300">
+                          A selection of tools, libraries, and platforms I’ve
+                          worked with or am currently exploring.
+                        </p>
+
+                        <div className="flex flex-wrap justify-center gap-4 text-sm sm:text-base">
+                          {skills.map((skill, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm"
+                            >
+                              <span className="text-lg">{skill.icon}</span>
+                              {skill.name}
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </section>
+                    </section>
 
-
-              {/* SKILLS SECTION */}
-              <section
-                aria-labelledby="skills"
-                id="skills"
-                className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 py-16 px-4 transition-colors"
-              >
-                <div
-                  className="max-w-4xl mx-auto text-center space-y-10"
-                  data-aos="fade-up"
-                >
-                  <h2 className="text-4xl font-extrabold tracking-tight">
-                    Skills
-                  </h2>
-                  <p className="text-lg text-gray-600 dark:text-gray-300">
-                    A selection of tools, libraries, and platforms I’ve worked
-                    with or am currently exploring.
-                  </p>
-
-                  <div className="flex flex-wrap justify-center gap-4 text-sm sm:text-base">
-                    {skills.map((skill, index) => (
+                    {/* About section */}
+                    <section
+                      aria-labelledby="about"
+                      id="about"
+                      className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 py-16 px-4 transition-colors"
+                    >
                       <div
-                        key={index}
-                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm"
+                        className="max-w-3xl mx-auto text-center space-y-6"
+                        data-aos="fade-up"
                       >
-                        <span className="text-lg">{skill.icon}</span>
-                        {skill.name}
+                        {/* 👤 Avatar */}
+                        <div className="relative flex justify-center">
+                          <div className="absolute w-60 h-60 bg-blue-500 blur-2xl opacity-30 rounded-full dark:opacity-50" />
+                          <img
+                            src="/avatar.png"
+                            alt="Mark Fox"
+                            className="w-48 h-48 rounded-full shadow-lg border-4 border-white dark:border-gray-700 animate-float relative"
+                          />
+                        </div>
+                        <h2 className="text-4xl font-extrabold tracking-tight text-gray-800 dark:text-white">
+                          About Me
+                        </h2>
+                        <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-200">
+                          I'm a software engineer with a passion for building
+                          smart, intuitive, and useful tools. While I enjoy the
+                          frontend experience and visual design, I'm also
+                          working toward mastering AI engineering through
+                          hands-on learning and certification.
+                        </p>
+                        <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-200">
+                          I enjoy building solutions that are both practical and
+                          intuitive, with a focus on real-world usability. While
+                          I value structure and clarity, I also stay curious —
+                          exploring new tools and technologies to improve the
+                          way things work. Whether I’m refining a user interface
+                          or simplifying a backend flow, my goal is always the
+                          same: make it work, make it clear, and make it better.
+                        </p>
+                        <div className="mt-6">
+                          <a
+                            href="/resume.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow transition text-sm"
+                          >
+                            View My Resume
+                          </a>
+                        </div>
                       </div>
-                    ))}
-                  </div>
+                    </section>
+
+                    {/* Contact section */}
+                    <section
+                      aria-labelledby="contact"
+                      id="contact"
+                      className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 py-16 px-4 transition-colors"
+                    >
+                      <div
+                        className="max-w-2xl mx-auto space-y-8 text-center"
+                        data-aos="fade-up"
+                      >
+                        <h2 className="text-4xl font-extrabold tracking-tight">
+                          Contact Me
+                        </h2>
+                        <p className="text-lg text-gray-600 dark:text-gray-300">
+                          Interested in working together or just want to say hi?
+                          Drop me a message below.
+                        </p>
+
+                        <form
+                          onSubmit={handleSubmit}
+                          className="space-y-6 text-left"
+                        >
+                          <input
+                            type="text"
+                            name="name"
+                            required
+                            placeholder="Your Name"
+                            className="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          />
+                          <input
+                            type="email"
+                            name="email"
+                            required
+                            placeholder="Your Email"
+                            className="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          />
+                          <textarea
+                            name="message"
+                            required
+                            rows="5"
+                            placeholder="Your Message"
+                            className="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          />
+                          <button
+                            type="submit"
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors w-full"
+                          >
+                            {status === "loading"
+                              ? "Sending..."
+                              : "Send Message"}
+                          </button>
+                          {status === "success" && (
+                            <p className="text-green-600 dark:text-green-400 mt-2">
+                              ✅ Message sent! I'll get back to you soon.
+                            </p>
+                          )}
+                          {status === "error" && (
+                            <p className="text-red-600 dark:text-red-400 mt-2">
+                              ❌ Oops! Something went wrong. Please try again
+                              later.
+                            </p>
+                          )}
+                        </form>
+                      </div>
+                    </section>
+
+                    {/* Footer section */}
+                    <footer className="bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-sm py-6 px-4 transition-colors">
+                      <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center">
+                        <p>
+                          &copy; {new Date().getFullYear()} Mark Fox. All rights
+                          reserved.
+                        </p>
+                        <div className="flex gap-4">
+                          <a
+                            href="mailto:mfox47@gmail.com"
+                            className="hover:text-blue-600 dark:hover:text-blue-400 transition"
+                          >
+                            Email
+                          </a>
+                          <a
+                            href="https://github.com/mark-fox"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="hover:text-blue-600 dark:hover:text-blue-400 transition"
+                          >
+                            GitHub
+                          </a>
+                          <a
+                            href="https://linkedin.com/in/markfox1"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="hover:text-blue-600 dark:hover:text-blue-400 transition"
+                          >
+                            LinkedIn
+                          </a>
+                        </div>
+                      </div>
+                    </footer>
+                  </main>
                 </div>
-              </section>
+              </div>
+            </div>
 
-
-              {/* About section */}
-              <section
-                aria-labelledby="about"
-                id="about"
-                className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 py-16 px-4 transition-colors"
+            {/* Scroll to top button */}
+            {showButton && (
+              <button
+                onClick={scrollToTop}
+                className="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 dark:bg-blue-500 dark:hover:bg-blue-400"
+                aria-label="Scroll to top"
               >
-                <div
-                  className="max-w-3xl mx-auto text-center space-y-6"
-                  data-aos="fade-up"
-                >
-                  {/* 👤 Avatar */}
-                  <div className="relative flex justify-center">
-                    <div className="absolute w-60 h-60 bg-blue-500 blur-2xl opacity-30 rounded-full dark:opacity-50" />
-                    <img
-                      src="/avatar.png"
-                      alt="Mark Fox"
-                      className="w-48 h-48 rounded-full shadow-lg border-4 border-white dark:border-gray-700 animate-float relative"
-                    />
-                  </div>
-                  <h2 className="text-4xl font-extrabold tracking-tight text-gray-800 dark:text-white">
-                    About Me
-                  </h2>
-                  <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-200">
-                    I'm a software engineer with a passion for building smart,
-                    intuitive, and useful tools. While I enjoy the frontend
-                    experience and visual design, I'm also working toward
-                    mastering AI engineering through hands-on learning and
-                    certification.
-                  </p>
-                  <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-200">
-                    I enjoy building solutions that are both practical and intuitive, with a focus on real-world usability. While I value structure and clarity, I also stay curious — exploring new tools and technologies to improve the way things work. Whether I’m refining a user interface or simplifying a backend flow, my goal is always the same: make it work, make it clear, and make it better.
-                  </p>
-                  <div className="mt-6">
-                    <a
-                      href="/resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow transition text-sm"
-                    >
-                      View My Resume
-                    </a>
-                  </div>
-                </div>
-              </section>
-
-
-              {/* Contact section */}
-              <section
-                aria-labelledby="contact"
-                id="contact"
-                className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 py-16 px-4 transition-colors"
-              >
-                <div
-                  className="max-w-2xl mx-auto space-y-8 text-center"
-                  data-aos="fade-up"
-                >
-                  <h2 className="text-4xl font-extrabold tracking-tight">
-                    Contact Me
-                  </h2>
-                  <p className="text-lg text-gray-600 dark:text-gray-300">
-                    Interested in working together or just want to say hi? Drop
-                    me a message below.
-                  </p>
-
-                  <form onSubmit={handleSubmit} className="space-y-6 text-left">
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      placeholder="Your Name"
-                      className="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      placeholder="Your Email"
-                      className="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <textarea
-                      name="message"
-                      required
-                      rows="5"
-                      placeholder="Your Message"
-                      className="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <button
-                      type="submit"
-                      className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition-colors w-full"
-                    >
-                      {status === "loading" ? "Sending..." : "Send Message"}
-                    </button>
-                    {status === "success" && (
-                      <p className="text-green-600 dark:text-green-400 mt-2">
-                        ✅ Message sent! I'll get back to you soon.
-                      </p>
-                    )}
-                    {status === "error" && (
-                      <p className="text-red-600 dark:text-red-400 mt-2">
-                        ❌ Oops! Something went wrong. Please try again later.
-                      </p>
-                    )}
-                  </form>
-                </div>
-              </section>
-
-
-              {/* Scroll to top button */}
-              {showButton && (
-                <button
-                  onClick={scrollToTop}
-                  className="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 dark:bg-blue-500 dark:hover:bg-blue-400"
-                  aria-label="Scroll to top"
-                >
-                  ↑
-                </button>
-              )}
-
-
-              {/* Footer section */}
-              <footer className="bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-sm py-6 px-4 transition-colors">
-                <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center">
-                  <p>
-                    &copy; {new Date().getFullYear()} Mark Fox. All rights
-                    reserved.
-                  </p>
-                  <div className="flex gap-4">
-                    <a
-                      href="mailto:mfox47@gmail.com"
-                      className="hover:text-blue-600 dark:hover:text-blue-400 transition"
-                    >
-                      Email
-                    </a>
-                    <a
-                      href="https://github.com/mark-fox"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="hover:text-blue-600 dark:hover:text-blue-400 transition"
-                    >
-                      GitHub
-                    </a>
-                    <a
-                      href="https://linkedin.com/in/markfox1"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="hover:text-blue-600 dark:hover:text-blue-400 transition"
-                    >
-                      LinkedIn
-                    </a>
-                  </div>
-                </div>
-              </footer>
-            </main>
+                ↑
+              </button>
+            )}
           </>
         }
       />
@@ -381,7 +400,6 @@ function App() {
     </Routes>
   );
 }
-
 
 // Static list of projects
 const projects = [
