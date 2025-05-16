@@ -1,12 +1,61 @@
-# React + Vite
+# 💼 Mark Fox - Developer Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Site:** [https://markfox.dev](https://markfox.dev)
 
-Currently, two official plugins are available:
+This is the personal portfolio of Mark Fox, an AI-focused full-stack developer passionate about building intelligent, user-centered tools. The site showcases a range of projects involving React, Python, Flask, and Hugging Face, with a clean, responsive, and modern design.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🌙 **Dark Mode Toggle** with persistence
+- 🧭 **Sticky Navbar** with smooth scroll and active section highlighting
+- 🎨 **Responsive Design** built with Tailwind CSS + React
+- 🎯 **Project Filtering** by tags
+- 💬 **Contact Form** using Formspree
+- 📎 **Resume Download** with analytics tracking
+- 📊 **Google Analytics 4** integration
+- 📸 **Social Sharing Preview** with Open Graph and Twitter meta tags
+- 🖼️ **Custom Favicon & Banner Preview Image**
+- ♿ **Accessibility Improvements**
+
+---
+
+## 📁 Tech Stack
+
+- **Frontend:** React, Tailwind CSS, Vite
+- **Backend (Project Demo):** Flask, Hugging Face Transformers
+- **Tools:** AOS for animations, Formspree, Google Analytics, GitHub Pages/Vercel
+
+---
+
+## 📷 Preview
+
+![preview](public/preview.png)
+
+---
+
+## 🛠 Local Development
+
+To run locally:
+
+```bash
+git clone https://github.com/mark-fox/portfolio-site.git
+cd portfolio-site
+npm install
+npm run dev
+```
+
+## 📄 Resume
+
+You can [view the resume](https://markfox.dev/resume.pdf) or download it directly from the site via the **Resume** button in the navigation bar.
+
+## 🤝 Contact
+
+Interested in collaborating, hiring, or just saying hello?
+
+Feel free to reach out through the [contact form](https://markfox.dev/#contact) on the site. I’ll get back to you as soon as possible.
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
