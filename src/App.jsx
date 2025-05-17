@@ -419,7 +419,7 @@ const projects = [
     description:
       "Exploratory data analysis using Pandas and Jupyter with markdown insights and visuals.",
     tech: "Python, Pandas, Jupyter",
-    image: "",
+    image: "/datawrangling.png",
     repo: "https://github.com/mark-fox/ai-certification-prep/tree/main/week2-data-wrangling",
     demo: "",
   },
@@ -439,7 +439,7 @@ const projects = [
     description:
       "A responsive, dark-mode-enabled portfolio site built with React, Tailwind, and Vite to showcase projects and skills.",
     tech: "React, Tailwind CSS, Vite, AOS",
-    image: "",
+    image: "/preview.png",
     repo: "https://github.com/mark-fox/portfolio-site",
     demo: "",
   },
