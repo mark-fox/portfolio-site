@@ -404,6 +404,16 @@ function App() {
 // Static list of projects
 const projects = [
   {
+  title: "AI Document Analyzer",
+  tags: ["AI", "NLP", "LangChain", "FastAPI", "React"],
+  description:
+    "Full-stack app that lets users upload PDFs, embed text into a FAISS index, and query them with extractive QA.",
+  tech: "Python, FastAPI, LangChain, Hugging Face, React",
+  image: "/doc_analyzer.PNG", 
+  repo: "https://github.com/mark-fox/ai-doc-analyzer",
+  demo: "", 
+},
+{
     title: "AI Sentiment & Image Classifier",
     tags: ["AI", "React", "Flask", "Hugging Face", "Tailwind"],
     description:
