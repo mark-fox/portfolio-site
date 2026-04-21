@@ -403,7 +403,17 @@ function App() {
 
 // Static list of projects
 const projects = [
-  {
+{
+  title: "InquiryOS – AI Research Workspace",
+  tags: ["AI", "LLM", "Full Stack", "FastAPI", "React", "Async Systems"],
+  description:
+    "A full-stack AI research system that breaks down complex questions into a multi-stage pipeline. It plans research, retrieves and ranks web sources, summarizes content, and synthesizes structured answers with citations and recommendations.",
+  tech: "Python, FastAPI, Async SQLAlchemy, PostgreSQL, React, TypeScript, Tailwind, Ollama",
+  image: "/inquiryos.gif", 
+  repo: "https://github.com/mark-fox/inquiry-os",
+  demo: "", 
+},
+{
   title: "AI Document Analyzer",
   tags: ["AI", "NLP", "LangChain", "FastAPI", "React"],
   description:
