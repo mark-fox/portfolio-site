@@ -404,6 +404,16 @@ function App() {
 // Static list of projects
 const projects = [
 {
+  title: "ReturnRadar – AI Receipt Tracker",
+  tags: ["AI", "Mobile", "Full Stack", "FastAPI", "React Native"],
+  description:
+    "Mobile app for scanning receipts, reviewing AI-extracted purchase details, tracking return and warranty deadlines, storing receipt images, and managing product support information.",
+  tech: "Python, FastAPI, PostgreSQL, Alembic, Expo, React Native, TypeScript, OpenAI Vision",
+  image: "/returnradar-preview.gif",
+  repo: "https://github.com/mark-fox/returnradar",
+  demo: "/returnradar.mp4",
+},
+{
   title: "InquiryOS – AI Research Workspace",
   tags: ["AI", "LLM", "Full Stack", "FastAPI", "React", "Async Systems"],
   description:
