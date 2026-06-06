@@ -1,126 +1,80 @@
-import DarkModeToggle from "./DarkModeToggle";
+import { useState } from "react";
 import { Link } from "react-scroll";
-import { useEffect, useState } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiDownload, FiMenu, FiX } from "react-icons/fi";
+import DarkModeToggle from "./DarkModeToggle";
 
-const navItems = ["home", "projects", "skills", "about", "contact"];
+const navItems = [
+  { id: "home", label: "Home" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "about", label: "About" },
+  { id: "contact", label: "Contact" },
+];
 
 function Navbar() {
-  const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const sections = document.querySelectorAll("section[id]");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.find((entry) => entry.isIntersecting);
-        if (visible) {
-          setActiveSection(visible.target.id);
-        }
-      },
-      { threshold: 0.6 }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => sections.forEach((section) => observer.unobserve(section));
-  }, []);
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 py-4 shadow-sm transition-colors">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0">
-        {/* Brand */}
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/90 px-4 py-3 text-white shadow-lg shadow-slate-950/20 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
         <Link
           to="home"
-          smooth={true}
+          smooth
           duration={500}
-          offset={-70} // adjust based on your navbar height
-          className="cursor-pointer text-2xl font-bold text-gray-800 dark:text-white transition-colors"
+          offset={-72}
+          onClick={closeMenu}
+          className="cursor-pointer text-lg font-black tracking-normal text-white"
         >
           Mark Fox
         </Link>
 
-        {/* Hamburger Menu Toggle - visible only on small screens */}
         <button
-          className="sm:hidden text-2xl text-gray-800 dark:text-white"
-          onClick={() => setMenuOpen(!menuOpen)}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/10 text-xl text-white sm:hidden"
+          onClick={() => setMenuOpen((open) => !open)}
           aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
         >
           {menuOpen ? <FiX /> : <FiMenu />}
         </button>
 
-        {/* Navigation Links */}
         <div
-          className={`${
-            menuOpen ? "flex" : "hidden"
-          } flex-col sm:flex sm:flex-row gap-4 items-center sm:items-start`}
+          className={`absolute left-4 right-4 top-[64px] rounded-lg border border-white/10 bg-slate-950 p-4 shadow-xl sm:static sm:flex sm:items-center sm:gap-2 sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none ${
+            menuOpen ? "block" : "hidden sm:flex"
+          }`}
         >
-          <Link
-            spy={true}
-            activeClass="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 font-semibold"
-            to="home"
-            smooth={true}
-            duration={500}
-            offset={-70} // adjust based on your navbar height
-            className="cursor-pointer text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
-          >
-            Home
-          </Link>
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-center">
+            {navItems.map((item) => (
+              <Link
+                key={item.id}
+                to={item.id}
+                smooth
+                spy
+                duration={500}
+                offset={-72}
+                onClick={closeMenu}
+                activeClass="text-cyan-200 bg-white/10"
+                className="cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
 
-          <Link
-            to="projects"
-            smooth={true}
-            duration={500}
-            offset={-70} // adjust based on your navbar height
-            className="cursor-pointer text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
-            spy={true}
-            activeClass="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 font-semibold"
-          >
-            Projects
-          </Link>
-          <Link
-            to="skills"
-            smooth={true}
-            duration={500}
-            offset={-70} // adjust based on your navbar height
-            spy={true}
-            activeClass="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 font-semibold"
-            className="cursor-pointer text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
-          >
-            Skills
-          </Link>
-          <Link
-            to="about"
-            smooth={true}
-            duration={500}
-            offset={-70} // adjust based on your navbar height
-            spy={true}
-            activeClass="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 font-semibold"
-            className="cursor-pointer text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
-          >
-            About
-          </Link>
-          <Link
-            to="contact"
-            smooth={true}
-            duration={500}
-            offset={-70} // adjust based on your navbar height
-            spy={true}
-            activeClass="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 font-semibold"
-            className="cursor-pointer text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
-          >
-            Contact
-          </Link>
-          <DarkModeToggle />
-          <a
-            aria-label="View resume PDF"
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition text-sm text-center w-full sm:w-auto"
-          >
-            Resume
-          </a>
+          <div className="mt-3 flex flex-col gap-2 border-t border-white/10 pt-3 sm:ml-2 sm:mt-0 sm:flex-row sm:items-center sm:border-0 sm:pt-0">
+            <DarkModeToggle />
+            <a
+              aria-label="View resume PDF"
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-cyan-300 px-4 py-2 text-sm font-black text-slate-950 transition hover:bg-cyan-200"
+            >
+              <FiDownload aria-hidden="true" />
+              Resume
+            </a>
+          </div>
         </div>
       </div>
     </nav>

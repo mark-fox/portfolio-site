@@ -1,36 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+
+html {
+  scroll-behavior: smooth;
 }
 
-.animate-fade-in {
-  animation: fade-in 1s ease-out forwards;
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #020617;
 }
 
-.avatar-hover-fix {
-  will-change: transform;
-  transition: all 0.3s ease;
+a {
+  text-decoration: none;
 }
 
-.avatar-hover-fix:hover {
-  transform: scale(1.05);
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+img {
+  max-width: 100%;
 }
