@@ -513,6 +513,24 @@ const featuredProjects = [
     demo: "/returnradar.mp4",
   },
   {
+    title: "InvoiceFlow AI",
+    subtitle: "AI Accounts Payable Automation",
+    tags: ["AI", "n8n", "FastAPI", "React", "PostgreSQL", "OpenAI"],
+    description:
+      "AI-assisted accounts payable system that processes uploaded invoices through an event-driven n8n workflow, extracts structured invoice data with OpenAI, validates it against purchase orders, and routes exceptions for human review.",
+    impact:
+      "Combines AI extraction with deterministic business rules, workflow orchestration, recovery handling, and human review to automate a realistic back-office process without allowing the LLM to make business decisions.",
+    architecture: [
+      "Event-driven n8n workflow triggered automatically after invoice upload",
+      "OpenAI structured extraction with deterministic PO, duplicate, amount, confidence, and required-field validation",
+      "FastAPI and PostgreSQL backend with idempotency, retries, audit tracing, recovery, and automation metrics",
+    ],
+    tech: "Python, FastAPI, PostgreSQL, SQLAlchemy, Alembic, React, TypeScript, n8n, OpenAI, Docker",
+    image: "/invoiceflowai.PNG",
+    repo: "https://github.com/mark-fox/invoiceflow-ai",
+    imageAlt: "InvoiceFlow AI accounts payable automation dashboard",
+  },
+  {
     title: "InquiryOS",
     subtitle: "AI Research Workspace",
     tags: ["AI", "LLM", "FastAPI", "React", "Async Systems"],
@@ -530,6 +548,9 @@ const featuredProjects = [
     repo: "https://github.com/mark-fox/inquiry-os",
     demo: "",
   },
+];
+
+const additionalProjects = [
   {
     title: "AI Document Analyzer",
     subtitle: "PDF QA and Embedding Workflow",
@@ -548,9 +569,6 @@ const featuredProjects = [
     repo: "https://github.com/mark-fox/ai-doc-analyzer",
     demo: "",
   },
-];
-
-const additionalProjects = [
   {
     title: "AI Sentiment & Image Classifier",
     tags: ["AI", "React", "Flask", "Hugging Face", "Tailwind"],

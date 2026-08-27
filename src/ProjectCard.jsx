@@ -8,6 +8,7 @@ function ProjectCard({
   architecture,
   tech,
   image,
+  imageAlt,
   repo,
   demo,
   tags,
@@ -20,7 +21,7 @@ function ProjectCard({
         className="grid overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-slate-900 lg:grid-cols-[0.9fr_1.1fr]"
         data-aos="fade-up"
       >
-        <ProjectImage image={image} title={title} large />
+        <ProjectImage image={image} title={title} imageAlt={imageAlt} large />
 
         <div className="flex flex-col gap-6 p-6 lg:p-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
@@ -84,7 +85,7 @@ function ProjectCard({
       className="flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-slate-900"
       data-aos="fade-up"
     >
-      <ProjectImage image={image} title={title} />
+      <ProjectImage image={image} title={title} imageAlt={imageAlt} />
 
       <div className="flex flex-1 flex-col gap-4 p-5">
         <div>
@@ -108,7 +109,7 @@ function ProjectCard({
   );
 }
 
-function ProjectImage({ image, title, large = false }) {
+function ProjectImage({ image, title, imageAlt, large = false }) {
   const height = large ? "h-64 lg:h-full" : "h-48";
 
   if (!image) {
@@ -125,7 +126,7 @@ function ProjectImage({ image, title, large = false }) {
     <div className={`${height} overflow-hidden bg-slate-100 dark:bg-slate-800`}>
       <img
         src={image}
-        alt={`${title} preview`}
+        alt={imageAlt || `${title} preview`}
         className="h-full w-full object-cover transition duration-500 hover:scale-105"
       />
     </div>
